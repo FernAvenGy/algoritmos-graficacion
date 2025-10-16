@@ -4,6 +4,8 @@
 #include <graphics.h>
 #include <math.h>
 
+//X=639  Y=479
+
 // A1 - Linea
 void linea(){
 	float x1, y1, x2, y2, incr;
@@ -14,15 +16,15 @@ void linea(){
 	//Validacion de que las coordenadas sean diferentes
 	while(banGrl==true){
 		//Validacion de que la primera coordenada se encuentre dentro de los limites de la ventana grafica
-		while(ban==true){
+		while(ban1==true){
 			printf("Ingrese las coordenadas del primer punto\n");
 			scanf("%f", &x1);
 			scanf("%f", &y1);
-			if((x1<0 || x1>getmaxx()-1)|| (y1<0 || y1>getmaxy()-1)){
-				printf("Coordenadas fuera de los limites de la ventana\n");
+			if((x1>0 && x1<=638) && (y1>0 && y1<=478)){
+				ban1=false;
 			}
 			else{
-				ban1=false;
+				printf("Coordenadas fuera de los limites de la ventana\n");
 			}
 		}
 		//Validacion de que la segunda coordenada se encuentre dentro de los limites de la ventana grafica
@@ -30,7 +32,7 @@ void linea(){
 			printf("Ingrese las coordenadas del segundo punto\n");
 			scanf("%f", &x2);
 			scanf("%f", &y2);
-			if((x2<0 || x2>getmaxx) || (y2<0 || y2>getmaxy)){
+			if((x2<0 || x2>=638) || (y2<0 || y2>=478)){
 				printf("Coordenadas fuera de los limites de la ventana\n");
 			}
 			else{
@@ -110,27 +112,17 @@ void linea(){
 void linea_pm(){
 	float x1, y1, x2, y2, incr;
 	float dX, dY, X, Y, incE, incNE, d;
-	/*
-	printf("Ingrese las coordenadas del primer punto\n");
-	scanf("%f", &x1);
-	scanf("%f", &y1);
-	printf("Ingrese las coordenadas del segundo punto\n");
-	scanf("%f", &x2);
-	scanf("%f", &y2);
-	printf("Ingrese el incremento\n");
-	scanf("%f", &incr);
-	*/
 	
 	bool ban1=true, ban2=true, banGrl=true, banIncr=true;
 	//Solicitar las dos coordenadas (de incio y fin) y el incremento
 	//Validacion de que las coordenadas sean diferentes
 	while(banGrl==true){
 		//Validacion de que la primera coordenada se encuentre dentro de los limites de la ventana grafica
-		while(ban==true){
+		while(ban1==true){
 			printf("Ingrese las coordenadas del primer punto\n");
 			scanf("%f", &x1);
 			scanf("%f", &y1);
-			if((x1<0 || x1>getmaxx()-1)|| (y1<0 || y1>getmaxy()-1)){
+			if((x1<0 || x1>638) || (y1<0 || y1>478)){
 				printf("Coordenadas fuera de los limites de la ventana\n");
 			}
 			else{
@@ -142,7 +134,7 @@ void linea_pm(){
 			printf("Ingrese las coordenadas del segundo punto\n");
 			scanf("%f", &x2);
 			scanf("%f", &y2);
-			if((x2<0 || x2>getmaxx) || (y2<0 || y2>getmaxy)){
+			if((x1<0 || x1>638) || (y1<0 || y1>478)){
 				printf("Coordenadas fuera de los limites de la ventana\n");
 			}
 			else{
@@ -243,21 +235,23 @@ void circulo(){
 		if(r<0){
 			printf("El valor del radio debe ser positivo\n");
 		}
+		else if(r*2>=638 && r*2>=478){
+			printf("El valor del radio supera los limites de la ventana\n");
+		}
 		else{
 			banRad=false;
 		}
 	}
-
-	//Pedir las coordenadas del centro y validarlas
 	while(banCen==true){
+		//Pedir las coordenadas del centro y validarlas
 		printf("Ingrese las coordenadas del centro del circulo\n");
 		scanf("%f", &X);
 		scanf("%f", &Y);
-		if((X-r<0 || X+r>getmaxx()-1) || (Y-r<0 || Y+r>getmaxy()-1)){ // ----------------------------------------------------------------- checar esta condicional
+		if((X-r<0 || X+r>639) || (Y-r<0 || Y+r>479)){ 
 			printf("Circulo fuera de los limites de la ventana\n");
 		}
 		else{
-			ban1=false;
+			banCen=false;
 		}
 	}
 
@@ -303,6 +297,9 @@ void circulo_trig(){
 		if(r<0){
 			printf("El valor del radio debe ser positivo\n");
 		}
+		else if(r*2>=638 && r*2>=478){
+			printf("El valor del radio supera los limites de la ventana\n");
+		}
 		else{
 			banRad=false;
 		}
@@ -312,24 +309,24 @@ void circulo_trig(){
 		printf("Ingrese las coordenadas del centro del circulo\n");
 		scanf("%f", &X);
 		scanf("%f", &Y);
-		if((X-r<0 || X+r>getmaxx()-1) || (Y-r<0 || Y+r>getmaxy()-1)){ // ----------------------------------------------------------------- checar esta condicional
+		if((X-r<0 || X+r>639) || (Y-r<0 || Y+r>479)){ // ----------------------------------------------------------------- checar esta condicional
 			printf("Circulo fuera de los limites de la ventana\n");
 		}
 		else{
-			ban1=false;
+			banCen=false;
 		}
 	}
-	//Pedir los grados y validar que el valor esté entre 0.1 y 15 
+	//Pedir los grados y validar que el valor este entre 0.1 y 15 
 	while(banGrad==true){ // ---------------------------------------------------------------------------------------------- ver si esto sí funciona 
 		int grados=0;
-		printf("Ingrese los grados, debe encontrarse entre 0.1 y 15 grados\n");
+		printf("Ingrese los grados, valor recomendado:0\n");
 		scanf("%f", &grados);
-		if(grados<0.1 || grados>15){
-			printf("Los grados son invalidos\n");
-		}
-		else{
+		if(grados>=0.1 || grados<=15.0){
 			theta = (grados*M_PI)/180;
 			banGrad=false;
+		}
+		else{
+			printf("Los grados son invalidos\n");
 		}
 	}
 	
@@ -385,8 +382,8 @@ void circulo_pm(){
 	
     initgraph(&gd, &gm, (char *)""); 
     
-    X=getmaxx()-1/2;
-    Y=getmaxy()-1/2;
+    X=getmaxx()/2;
+    Y=getmaxy()/2;
 
 	putpixel(x, y, WHITE);
 	while(x<=y){
@@ -449,11 +446,11 @@ void elipse(){
 		printf("Ingrese las coordenadas del centro del elipse\n");
 		scanf("%f", &h);
 		scanf("%f", &k);
-		if((h-R<0 || h+R>getmaxx()-1) || (k-r<0 || k+r>getmaxy()-1)){ // ----------------------------------------------------------------- checar esta condicional
+		if((h-R<0 || h+R>639) || (k-r<0 || k+r>479)){ // ----------------------------------------------------------------- checar esta condicional
 			printf("Elipse fuera de los limites de la ventana\n");
 		}
 		else{
-			ban1=false;
+			banCen=false;
 		}
 	}
 	
@@ -483,8 +480,9 @@ void elipse(){
 void elipse_trig(){
 	int gd=DETECT, gm;
 	float x, y, r, R, raiz, theta=0;
+	float h, k;
 	
-	bool banCen=true, banR=true, banr=true, banGrad==true;
+	bool banCen=true, banR=true, banr=true, banGrad=true;
 	//Solicitar radio mayor y validacion de que sea positivo
 	while(banR==true){
 		printf("Ingrese el radio mayor\n");
@@ -503,14 +501,14 @@ void elipse_trig(){
 	//Pedir los grados y validar que el valor esté entre 0.1 y 15. Hacer conversión a radianes
 	while(banGrad==true){ 
 		int grados=0;
-		printf("Ingrese los grados, debe encontrarse entre 0.1 y 15 grados\n");
+		printf("Ingrese los grados, valor recomendado:0\n");
 		scanf("%f", &grados);
-		if(grados<0.1 || grados>15){
-			printf("Los grados son invalidos\n");
-		}
-		else{
+		if(grados>=0.1 || grados<=15.0){
 			theta = (grados*M_PI)/180;
 			banGrad=false;
+		}
+		else{
+			printf("Los grados son invalidos\n");
 		}
 	}
 	
@@ -519,11 +517,11 @@ void elipse_trig(){
 		printf("Ingrese las coordenadas del centro del elipse\n");
 		scanf("%f", &h);
 		scanf("%f", &k);
-		if((h-R<0 || h+R>getmaxx()-1) || (k-r<0 || k+r>getmaxy()-1)){
+		if((h-R<0 || h+R>639) || (k-r<0 || k+r>479)){
 			printf("Elipse fuera de los limites de la ventana\n");
 		}
 		else{
-			ban1=false;
+			banCen=false;
 		}
 	}
 	x=0;
@@ -574,11 +572,11 @@ void elipse_pm(){
 		printf("Ingrese las coordenadas del centro del elipse\n");
 		scanf("%f", &h);
 		scanf("%f", &k);
-		if((h-a<0 || h+a>getmaxx()-1) || (k-b<0 || k+b>getmaxy()-1)){
+		if((h-a<0 || h+a>639) || (k-b<0 || k+b>479)){
 			printf("Elipse fuera de los limites de la ventana\n");
 		}
 		else{
-			ban1=false;
+			banCen=false;
 		}
 	}
 	
@@ -675,7 +673,7 @@ void rectangulo(){
 	while(banC==true){
 		printf("Ingrese la coordenada de la esquina superior izquierda\n");
     	scanf("%d %d", &x1, &y1);
-		if(((x1<0 || x1>getmaxx) || (y1<0 || y1>getmaxy))){
+		if((x1<0 || x1>639) || (y1<0 || y1>479)){
 			printf("Coordenada fuera de los limites de la ventana\n");
 		}
 		else{
@@ -685,7 +683,7 @@ void rectangulo(){
     while(banL==true){
 		printf("Ingrese el largo del rectangulo\n");
     	scanf("%d", &l);
-		if(l<0 || l>getmaxx()-1){
+		if(l<0 || l>639){
 			printf("Largo fuera de los limites de la ventana\n");
 		}
 		else{
@@ -696,21 +694,41 @@ void rectangulo(){
 	while(banA==true){
 		printf("Ingrese el ancho del rectangulo\n");
     	scanf("%d", &a);
-		if(a<0 || a>getmaxy()-1-1){
+		if(a<0 || a>479){
 			printf("Ancho fuera de los limites de la ventana\n");
 		}
 		else{
 			banA=false;
 		}
 	}
-    
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, (char *)"");
-
-    linea_bresenham(x1, y1, x1 + l, y1); 
-    linea_bresenham(x1 + l, y1, x1 + l, y1 + a); 
-    linea_bresenham(x1 + l, y1 + a, x1, y1 + a); 
-    linea_bresenham(x1, y1 + a, x1, y1); 
+	
+	int relleno int banRell=0;
+	
+	// -------------------------------------------------------------------------- CHECAR SI S� SIRVE Y AGREGAR EL RELLENO --------------------------------------------------------------------------
+	while(banRell=0){
+		printf("Selecciones una opci�n:\n 1. Rectangulo solido 2.ectangulo vacio\n")
+		scanf("%d", &relleno);
+	    
+	    int gd = DETECT, gm;
+	    initgraph(&gd, &gm, (char *)"");
+	    
+	    switch(relleno){
+	    	case 1:
+	    		banRell=1;
+	    		linea_bresenham(x1, y1, x1 + l, y1); 
+			    linea_bresenham(x1 + l, y1, x1 + l, y1 + a); 
+			    linea_bresenham(x1 + l, y1 + a, x1, y1 + a); 
+			    linea_bresenham(x1, y1 + a, x1, y1);
+			    break;
+			case 2:
+				banRell=1;
+				rectangulo_relleno();
+				break;
+			default:
+				printf("Opci�n inv�lida\n");
+		}
+	}
+	
     
     outtextxy(0, getmaxy()-1-100, "Presione cualquier tecla para continuar");
 
@@ -724,48 +742,67 @@ int main(){
 	
 	
 	while(salir == 0){
-		printf("\n\nMENU DE GRAFICOS\nQue quieres graficar?\n");
-		printf("1.Linea\n2. Linea con Punto medio\n3.Circulo\n4.Circulo (Trigonometrico)\n5.Circulo (Punto medio)\n6.Elipse\n7.Elipse (Trigonometrico)\n8.Elipse (Punto medio)\n9.Rectangulo\n10.Salir\n");
+		printf("\n * * * * * * * * * * * * * *  MENU DE GRAFICOS * * * * * * * * * * * * * *  \nQue quieres graficar?\n");
+		printf("1.Linea\n2.Linea con Punto medio\n3.Circulo\n4.Circulo (Trigonometrico)\n5.Circulo (Punto medio)\n6.Elipse\n7.Elipse (Trigonometrico)\n8.Elipse (Punto medio)\n9.Rectangulo\n10.Salir\n");
 		printf("Selecciona una opcion: ");
 		scanf("%d", &opc);
 		switch(opc){
 			case 1:
+				system("cls");
 				printf(" ---------- LINEA ---------- \n");
 				linea();
+				system("cls");
 				break;
 			case 2:
+				system("cls");
 				printf(" ---------- LINEA POR PUNTO MEDIO ---------- \n");
 				linea_pm();
+				system("cls");
 				break;
 			case 3:
+				system("cls");
 				printf(" ---------- CIRCULO  ---------- \n");
 				circulo();
+				system("cls");
 				break;
 			case 4:
+				system("cls");
 				printf(" ---------- CIRCULO POR TRIGONOMETRIA ---------- \n");
 				circulo_trig();
+				system("cls");
 				break;
 			case 5:
+				system("cls");
 				printf(" ---------- CIRCULO POR PUNTO MEDIO ---------- \n");
 				circulo_pm();
+				system("cls");
 				break;
 			case 6:
+				system("cls");
 				printf(" ---------- ELIPSE ---------- \n");
 				elipse();
+				system("cls");
 				break;
 			case 7:
+				system("cls");
 				printf(" ---------- ELIPSE POR TRIGONOMETRIA ---------- \n");
 				elipse_trig();
+				system("cls");
 				break;
 			case 8:
+				system("cls");
 				printf(" ---------- ELIPSE POR PUNTO MEDIO ---------- \n");
 				elipse_pm();
+				system("cls");
 				break;
 			case 9:
+				system("cls");
 				printf(" ---------- RECTANGULO ---------- \n");
 				rectangulo();
+				system("cls");
 				break;
 			case 10:
+				system("cls");
 				printf("Saliendo...\n");
 				salir =1;
 				break;
@@ -777,5 +814,4 @@ int main(){
 	return 1;
 	
 }
-
 
